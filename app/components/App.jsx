@@ -14,10 +14,12 @@ export default function (props) {
           <img src="imgs/favicon.ico" alt="" width="16px" />
         </a>
         <NavLink to="/" onlyActiveOnIndex className="App__homelink">
-        Hacker News</NavLink>{' | '}
+        Hacker News</NavLink>
+        <NavLink to="/news">News</NavLink>{' | '}
+        <NavLink to="/best">Best</NavLink>{' | '}
         <NavLink to="/show">Show</NavLink>{' | '}
-        <NavLink to="/ask">Ask</NavLink>{' | '}
-        <NavLink to="/jobs">Jobs</NavLink>
+        <NavLink to="/jobs">Jobs</NavLink>{' | '}
+        <NavLink to="/ask">Ask</NavLink>
       </div>
       <div className="App__content">
         {props.children}

@@ -4,7 +4,7 @@ import StoryStore from './StoryStore';
 import Paginator from './Paginator';
 import StoryListItem from './StoryListItem';
 
-class Home extends React.Component {
+class Story extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -56,7 +56,6 @@ class Home extends React.Component {
     }
     return (
       <div>
-        <div>Hacker News Home</div>
         <ol className="StoryList" start={page.startIndex + 1}>
           {items}
         </ol>
@@ -70,13 +69,13 @@ class Home extends React.Component {
   }
 }
 
-Home.propTypes = {
+Story.propTypes = {
   type: React.PropTypes.string
 };
 
-Home.defaultProps = {
+Story.defaultProps = {
   type: 'newstories'
 };
 
 
-export default Home;
+export default Story;
