@@ -8,8 +8,8 @@ body {
   width: 90%;
   max-width: 800px;
   margin: 5px auto;
+  background-color: #F8F8F0;
   color: #000;
-  background-color: #f5f5f5;
   font-size: 14px;
   font-family: Verdana, Geneva, sans-serif;
 }
@@ -69,15 +69,45 @@ body {
   text-decoration: underline;
 }
 
+.ListItem
+{
+  margin: 5px 0;
+}
+
+.ListItem__title a
+{
+  color: #000;
+  text-decoration: none;
+}
+
+.ListItem__title a:hover
+{
+  cursor: pointer;
+}
+
+.ListItem__title a:visited
+{
+  color: #828282;
+}
+
+.ListItem__host a
+{
+  color: #828282;
+  text-decoration: none;
+  font-size: 12px;
+}
+
+.ListItem__meta
+{
+  color: #828282;
+  font-size: 12px;
+}
+
 @media (max-width: 750px)
 {
   .App
   {
     width: 100%;
     margin: 0px 0px;
-    color: #000;
-    background-color: #f5f5f5;
-    font-size: 14px;
-    font-family: Verdana, Geneva, sans-serif;
   }
 }

@@ -23,7 +23,7 @@ export default function (props) {
         {props.children}
       </div>
       <div className="App__footer">
-        <a href={URL}>kamidox/react-hn-lite</a>
+        <a href={URL}>kamidox/react-hacker-news</a>
       </div>
     </div>
   );

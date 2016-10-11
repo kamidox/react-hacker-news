@@ -2,6 +2,7 @@ import React from 'react';
 import log from 'loglevel';
 import StoryStore from './StoryStore';
 import Paginator from './Paginator';
+import StoryListItem from './StoryListItem';
 
 class Home extends React.Component {
   constructor(props) {
@@ -46,15 +47,17 @@ class Home extends React.Component {
 
   render() {
     const items = [];
-    const page = this.getPage(50, this.state.ids.length);
+    const page = this.getPage(30, this.state.ids.length);
+    const ids = this.state.ids;
     log.info(`${this.props.type}: render page ${page.page}`);
     for (let i = page.startIndex; i < page.endIndex; i += 1) {
-      items.push(<li key={this.state.ids[i]}>{this.state.ids[i]}</li>);
+      items.push(
+        <StoryListItem key={ids[i]} itemId={ids[i]} store={this.store} />);
     }
     return (
       <div>
         <div>Hacker News Home</div>
-        <ol className="Item__list" start={page.startIndex + 1}>
+        <ol className="StoryList" start={page.startIndex + 1}>
           {items}
         </ol>
         <Paginator

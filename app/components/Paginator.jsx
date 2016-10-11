@@ -1,7 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router';
 
+function handleClick() {
+  window.setTimeout(() => window.scrollTo(0, 0), 0);
+}
+
 class Paginator extends React.Component {
+
   render() {
     if (this.props.page === 1 && !this.props.hasNext) {
       return null;
@@ -16,7 +21,7 @@ class Paginator extends React.Component {
     const nextUrl = { pathname: `${this.props.pathname}` };
     if (this.props.hasNext) {
       nextUrl.query = { page: this.props.page + 1 };
-      nextPage = <Link to={nextUrl} onClick={this.handleClick}>More</Link>;
+      nextPage = <Link to={nextUrl} onClick={handleClick}>More</Link>;
     }
 
     return (
