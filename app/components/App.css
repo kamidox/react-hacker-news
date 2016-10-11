@@ -1,0 +1,83 @@
+body {
+  background-color: #fff;
+  margin: 0;
+}
+
+.App
+{
+  width: 90%;
+  max-width: 800px;
+  margin: 5px auto;
+  color: #000;
+  background-color: #f5f5f5;
+  font-size: 14px;
+  font-family: Verdana, Geneva, sans-serif;
+}
+
+.App__header
+{
+  background-color: #ff6600;
+  padding-bottom: 5px;
+}
+
+.App__header a
+{
+  color: #000;
+  margin: 2px;
+  text-decoration: none;
+}
+
+.App__header a:active,
+.App__header .active
+{
+  color: #fff;
+}
+
+.App__header .App__homelink
+{
+  font-weight: bold;
+}
+
+.App__header .App__homeicon
+{
+  display: inline-block;
+  float: left;
+}
+
+.App__header .App__homeicon img
+{
+  border: 1px #fff solid;
+}
+
+.App__content
+{
+  padding: 0.5em 0.25em;
+}
+
+.App__footer
+{
+  padding: 5px 0;
+  border-top: 2px #ff6600 solid;
+  font-size: 12px;
+  color: #444;
+  text-align: center;
+}
+
+.App__footer a
+{
+  color: inherit;
+  text-decoration: underline;
+}
+
+@media (max-width: 750px)
+{
+  .App
+  {
+    width: 100%;
+    margin: 0px 0px;
+    color: #000;
+    background-color: #f5f5f5;
+    font-size: 14px;
+    font-family: Verdana, Geneva, sans-serif;
+  }
+}
