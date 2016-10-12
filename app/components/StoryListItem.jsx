@@ -45,14 +45,14 @@ class StoryListItem extends React.Component {
     }
     return (
       <li key={this.props.itemId}>
-        <div className="ListItem">
-          <div className="ListItem__title">
+        <div className="list-item">
+          <div className="list-item__title">
             <a href={item.url}>{item.title}</a>{' '}
-            <span className="ListItem__host">
+            <span className="list-item__host">
               <a href={item.url}>{`(${hostName(item.url)})`}</a>
             </span>
           </div>
-          <div className="ListItem__meta">
+          <div className="list-item__meta">
             {item.score} points by {item.by} {postTime(item.time)} | {item.descendants} comments.
           </div>
         </div>

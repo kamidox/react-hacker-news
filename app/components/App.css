@@ -3,7 +3,7 @@ body {
   margin: 0;
 }
 
-.App
+.app
 {
   width: 90%;
   max-width: 800px;
@@ -14,48 +14,48 @@ body {
   font-family: Verdana, Geneva, sans-serif;
 }
 
-.App__header
+.app-header
 {
   background-color: #ff6600;
   padding-bottom: 5px;
 }
 
-.App__header a
+.app-header a
 {
   color: #000;
   margin: 2px;
   text-decoration: none;
 }
 
-.App__header a:active,
-.App__header .active
+.app-header a:active,
+.app-header .active
 {
   color: #fff;
 }
 
-.App__header .App__homelink
+.app-header .homelink
 {
   font-weight: bold;
   margin-right: 10px;
 }
 
-.App__header .App__homeicon
+.app-header__logo
 {
   display: inline-block;
   float: left;
 }
 
-.App__header .App__homeicon img
+.app-header__logo img
 {
   border: 1px #fff solid;
 }
 
-.App__content
+.app-content
 {
   padding: 0.5em 0.25em;
 }
 
-.App__footer
+.app-footer
 {
   padding: 5px 0;
   border-top: 2px #ff6600 solid;
@@ -64,55 +64,60 @@ body {
   text-align: center;
 }
 
-.App__footer a
+.app-footer a
 {
   color: inherit;
   text-decoration: underline;
 }
 
-.ListItem
+.list-item
 {
   margin: 5px 0;
 }
 
-.ListItem__title a
+.list-item__title a
 {
   color: #000;
   text-decoration: none;
 }
 
-.ListItem__title a:hover
+.list-item__title a:hover
 {
   cursor: pointer;
 }
 
-.ListItem__title a:visited
+.list-item__title a:visited
 {
   color: #828282;
 }
 
-.ListItem__host a
+.list-item__host a
 {
   color: #828282;
   text-decoration: none;
   font-size: 12px;
 }
 
-.ListItem__meta
+.list-item__meta
 {
   color: #828282;
   font-size: 12px;
 }
 
-@media (max-width: 750px)
+@media (max-width: 500px)
 {
-  .App
+  .app
   {
     width: 100%;
     margin: 0px 0px;
   }
 
-  .App__header .App__homelink
+  .app-header__logo
+  {
+    display: none;
+  }
+
+  .app-header .homelink
   {
     display: block;
   }

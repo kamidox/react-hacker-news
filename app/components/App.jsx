@@ -8,12 +8,12 @@ const URL = 'https://github.com/kamidox/react-hacker-news';
 // react/prefer-stateless-function
 export default function (props) {
   return (
-    <div className="App">
-      <div className="App__header">
-        <a href={URL} className="App__homeicon">
+    <div className="app">
+      <div className="app-header">
+        <a href={URL} className="app-header__logo">
           <img src="imgs/favicon.ico" alt="" width="16px" />
         </a>
-        <NavLink to="/" onlyActiveOnIndex className="App__homelink">
+        <NavLink to="/" onlyActiveOnIndex className="homelink">
         Hacker News</NavLink>
         <NavLink to="/news">News</NavLink>{' | '}
         <NavLink to="/best">Best</NavLink>{' | '}
@@ -21,10 +21,10 @@ export default function (props) {
         <NavLink to="/jobs">Jobs</NavLink>{' | '}
         <NavLink to="/ask">Ask</NavLink>
       </div>
-      <div className="App__content">
+      <div className="app-content">
         {props.children}
       </div>
-      <div className="App__footer">
+      <div className="app-footer">
         <a href={URL}>kamidox/react-hacker-news</a>
       </div>
     </div>
