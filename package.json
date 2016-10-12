@@ -4,7 +4,7 @@
   "description": "hacker news client implemented by react",
   "main": "app/main.jsx",
   "scripts": {
-    "lint": "eslint 'app/**/*.@(js|jsx)'",
+    "lint": "eslint \"app/**/*.@(js|jsx)\"",
     "lint:msg": "validate-commit-msg",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack",
