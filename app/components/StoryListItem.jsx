@@ -36,7 +36,7 @@ class StoryListItem extends React.Component {
     }
     return (
       <li key={this.props.itemId}>
-        <div className="list-item">
+        <div className="item">
           {renderTitle(this.state.item)}
           {renderMeta(this.state.item)}
         </div>

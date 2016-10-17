@@ -9,8 +9,8 @@ const URL = 'https://github.com/kamidox/react-hacker-news';
 export default function (props) {
   return (
     <div className="app">
-      <div className="app-header">
-        <a href={URL} className="app-header__logo">
+      <div className="header">
+        <a href={URL} className="header__logo">
           <img src="imgs/favicon.ico" alt="" width="16px" />
         </a>
         <NavLink to="/" onlyActiveOnIndex className="homelink">
@@ -21,10 +21,10 @@ export default function (props) {
         <NavLink to="/jobs">Jobs</NavLink>{' | '}
         <NavLink to="/ask">Ask</NavLink>
       </div>
-      <div className="app-content">
+      <div className="content">
         {props.children}
       </div>
-      <div className="app-footer">
+      <div className="footer">
         <a href={URL}>kamidox/react-hacker-news</a>
       </div>
     </div>

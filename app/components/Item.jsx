@@ -37,19 +37,19 @@ class Item extends React.Component {
   render() {
     const item = this.state.item;
     if (!item) {
-      return <div className="list-item">Something goes wrong. Item is null!</div>;
+      return <div className="item">Something goes wrong. Item is null!</div>;
     }
     const kids = [];
     item.kids.forEach(kid => kids.push(
       <Comment key={kid} id={kid} level={0} store={this.store} />));
     return (
-      <div className="list-item">
-        <div className="list-item__content">
+      <div className="item">
+        <div className="item__content">
           {renderTitle(item)}
           {renderMeta(item)}
           {renderText(item)}
         </div>
-        <div className="list-item__kids">
+        <div className="item__kids">
           {kids}
         </div>
       </div>

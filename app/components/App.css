@@ -14,49 +14,49 @@ body {
   font-family: Verdana, Geneva, sans-serif;
 }
 
-.app-header
+.header
 {
   background-color: #ff6600;
   padding-bottom: 5px;
   vertical-align: middle;
 }
 
-.app-header a
+.header a
 {
   color: #000;
   margin: 2px;
   text-decoration: none;
 }
 
-.app-header a:active,
-.app-header .active
+.header a:active,
+.header .active
 {
   color: #fff;
 }
 
-.app-header .homelink
+.header .homelink
 {
   font-weight: bold;
   margin-right: 10px;
 }
 
-.app-header__logo
+.header__logo
 {
   display: inline-block;
   float: left;
 }
 
-.app-header__logo img
+.header__logo img
 {
   border: 1px #fff solid;
 }
 
-.app-content
+.content
 {
   padding: 0.5em 0.25em;
 }
 
-.app-footer
+.footer
 {
   padding: 5px 0;
   border-top: 2px #ff6600 solid;
@@ -65,59 +65,59 @@ body {
   text-align: center;
 }
 
-.app-footer a
+.footer a
 {
   color: inherit;
   text-decoration: underline;
 }
 
-.list-item
+.item
 {
   margin: 5px 0;
 }
 
-.list-item__title a
+.item__title a
 {
   color: #000;
   text-decoration: none;
 }
 
-.list-item__title a:hover
+.item__title a:hover
 {
   cursor: pointer;
 }
 
-.list-item__title a:visited
+.item__title a:visited
 {
   color: #828282;
 }
 
-.list-item__host a
+.item__host a
 {
   color: #828282;
   text-decoration: none;
   font-size: 12px;
 }
 
-.list-item__meta
+.item__meta
 {
   margin-top: 0.2em;
   color: #828282;
   font-size: 8pt;
 }
 
-.list-item__meta a
+.item__meta a
 {
   color: #828282;
   text-decoration: none;
 }
 
-.list-item__content
+.item__content
 {
   margin: 0.5em 1em;
 }
 
-.list-item__text
+.item__text
 {
   margin-top: 1em;
   color: #828282;
@@ -131,12 +131,12 @@ body {
     margin: 0px 0px;
   }
 
-  .app-header__logo
+  .header__logo
   {
     display: none;
   }
 
-  .app-header .homelink
+  .header .homelink
   {
     display: block;
   }
