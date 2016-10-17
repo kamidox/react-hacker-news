@@ -1,16 +1,7 @@
 import React from 'react';
-import TimeAgo from 'react-timeago';
-import urlParse from 'url-parse';
 import log from 'loglevel';
 import StoryStore from './StoryStore';
-
-function hostName(url) {
-  return urlParse(url, true).hostname;
-}
-
-function postTime(secs) {
-  return <TimeAgo date={secs * 1000} />;
-}
+import { renderTitle, renderMeta } from './Utils';
 
 class StoryListItem extends React.Component {
   constructor(props) {
@@ -46,19 +37,14 @@ class StoryListItem extends React.Component {
     return (
       <li key={this.props.itemId}>
         <div className="list-item">
-          <div className="list-item__title">
-            <a href={item.url}>{item.title}</a>{' '}
-            <span className="list-item__host">
-              <a href={item.url}>{`(${hostName(item.url)})`}</a>
-            </span>
-          </div>
-          <div className="list-item__meta">
-            {item.score} points by {item.by} {postTime(item.time)} | {item.descendants} comments.
-          </div>
+          {renderTitle(this.state.item)}
+          {renderMeta(this.state.item)}
         </div>
       </li>
     );
   }
+
+
 }
 
 StoryListItem.propTypes = {

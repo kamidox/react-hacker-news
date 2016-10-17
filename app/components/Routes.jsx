@@ -2,6 +2,7 @@ import React from 'react';
 import { Route, IndexRoute } from 'react-router';
 import Story from './Story';
 import App from './App';
+import Item from './Item';
 
 function stories(type) {
   return props => <Story {...props} type={type} />;
@@ -22,6 +23,7 @@ const routes = (
     <Route path="/show" component={show} />
     <Route path="/ask" component={asks} />
     <Route path="/jobs" component={jobs} />
+    <Route path="/story/:id" component={Item} />
   </Route>
 );
 

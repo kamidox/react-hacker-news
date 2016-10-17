@@ -10,7 +10,7 @@ body {
   margin: 5px auto;
   background-color: #F8F8F0;
   color: #000;
-  font-size: 14px;
+  font-size: 11pt;
   font-family: Verdana, Geneva, sans-serif;
 }
 
@@ -18,6 +18,7 @@ body {
 {
   background-color: #ff6600;
   padding-bottom: 5px;
+  vertical-align: middle;
 }
 
 .app-header a
@@ -59,7 +60,7 @@ body {
 {
   padding: 5px 0;
   border-top: 2px #ff6600 solid;
-  font-size: 12px;
+  font-size: 10pt;
   color: #444;
   text-align: center;
 }
@@ -100,8 +101,26 @@ body {
 
 .list-item__meta
 {
+  margin-top: 0.2em;
   color: #828282;
-  font-size: 12px;
+  font-size: 8pt;
+}
+
+.list-item__meta a
+{
+  color: #828282;
+  text-decoration: none;
+}
+
+.list-item__content
+{
+  margin: 0.5em 1em;
+}
+
+.list-item__text
+{
+  margin-top: 1em;
+  color: #828282;
 }
 
 @media (max-width: 500px)
