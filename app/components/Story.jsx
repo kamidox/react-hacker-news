@@ -56,7 +56,7 @@ class Story extends React.Component {
     }
     return (
       <div>
-        <ol className="StoryList" start={page.startIndex + 1}>
+        <ol className="storylist" start={page.startIndex + 1}>
           {items}
         </ol>
         <Paginator

@@ -17,8 +17,10 @@ body {
 .header
 {
   background-color: #ff6600;
-  padding-bottom: 5px;
+  padding: 5px;
   vertical-align: middle;
+  line-height: 18px;
+  position: relative;
 }
 
 .header a
@@ -37,23 +39,12 @@ body {
 .header .homelink
 {
   font-weight: bold;
-  margin-right: 10px;
-}
-
-.header__logo
-{
-  display: inline-block;
-  float: left;
-}
-
-.header__logo img
-{
-  border: 1px #fff solid;
+  margin-right: 1em;
 }
 
 .content
 {
-  padding: 0.5em 0.25em;
+  padding: 0.25em 0.25em;
 }
 
 .footer
@@ -71,9 +62,14 @@ body {
   text-decoration: underline;
 }
 
+.storylist
+{
+  margin: 0px;
+}
+
 .item
 {
-  margin: 5px 0;
+  padding: 3px 0px;
 }
 
 .item__title a
@@ -120,6 +116,18 @@ body {
 .item__text
 {
   margin-top: 1em;
+  color: #828282;
+}
+
+.paginator
+{
+  margin-left: 3em;
+  padding: 0.5em 0em;
+}
+
+.paginator a
+{
+  text-decoration: none;
   color: #828282;
 }
 

@@ -25,7 +25,7 @@ class Paginator extends React.Component {
     }
 
     return (
-      <div className="Paginator">
+      <div className="paginator">
         {prevPage}
         {prevPage && ' | '}
         {nextPage}
