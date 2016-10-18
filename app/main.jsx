@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 import { Router, hashHistory } from 'react-router';
 import routes from './components/Routes';
 
-log.setDefaultLevel('trace');
+log.setLevel('silent');
 
 ReactDOM.render(
   <Router history={hashHistory} routes={routes} />,

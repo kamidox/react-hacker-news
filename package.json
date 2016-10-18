@@ -11,6 +11,7 @@
     "start": "webpack-dev-server --devtool eval --progress --hot --content-base public",
     "deploy": "NODE_ENV=production webpack -p --config webpack.production.config.js",
     "deploy-windows": "SET NODE_ENV=production & webpack -p --config webpack.production.config.js",
+    "deploy-gh-pages": "npm run deploy && ghp-import -n -p public",
     "validate": "npm ls",
     "commit": "git cz",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 1"
