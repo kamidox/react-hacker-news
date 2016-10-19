@@ -54,6 +54,9 @@ class Story extends React.Component {
       items.push(
         <StoryListItem key={ids[i]} itemId={ids[i]} store={this.store} />);
     }
+    if (items.length === 0) {
+      items.push(<div key={this.props.type}>{`loading ${this.props.type} ...`}</div>);
+    }
     return (
       <div>
         <ol className="storylist" start={page.startIndex + 1}>
