@@ -22,6 +22,7 @@
   },
   "dependencies": {
     "babel-runtime": "6.x",
+    "classnames": "^2.2.5",
     "es6-promise": "^4.0.5",
     "events": "^1.1.1",
     "isomorphic-fetch": "^2.2.1",

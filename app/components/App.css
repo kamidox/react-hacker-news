@@ -102,7 +102,15 @@ body {
   font-size: 8pt;
 }
 
-.item__meta a
+.comment__meta
+{
+  margin-top: 0.2em;
+  color: #828282;
+  font-size: 9pt;
+}
+
+.item__meta a,
+.comment__meta a
 {
   color: #828282;
   text-decoration: none;
@@ -110,13 +118,75 @@ body {
 
 .item__content
 {
-  margin: 0.5em 1em;
+  margin: 0.5em 0.5em;
+}
+
+.comment__content
+{
+  margin: 1em 0.5em;
 }
 
 .item__text
 {
   margin-top: 1em;
   color: #828282;
+}
+
+.comment__text
+{
+  margin-top: 0.5em;
+  color: #000;
+}
+
+.comment__collapse
+{
+  cursor: pointer;
+}
+
+.comment--collapsed .comment__text,
+.comment--collapsed .comment__kids
+{
+  display: none;
+}
+
+.comment--level0 .comment__content
+{
+  padding-left: 0;
+}
+
+.comment--level1 .comment__content
+{
+  padding-left: 1em;
+}
+
+.comment--level2 .comment__content
+{
+  padding-left: 2em;
+}
+
+.comment--level3 .comment__content
+{
+  padding-left: 3em;
+}
+
+.comment--level4 .comment__content
+{
+  padding-left: 4em;
+}
+
+.comment--level5 .comment__content
+{
+  padding-left: 5em;
+}
+
+.comment--level6 .comment__content
+{
+  padding-left: 6em;
+}
+
+.comment--level7 .comment__content
+{
+  padding-left: 7em;
 }
 
 .paginator

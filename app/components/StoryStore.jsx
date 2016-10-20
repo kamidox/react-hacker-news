@@ -92,13 +92,48 @@ class StoryStore extends EventEmmiter {
   onItemUpdated(item) {
     log.info(`item updated. id=${item.id}, title=${item.title}`);
     cachedStories[item.id] = item;
-    populateStoryList(this.type);
+    if (itemIds[this.type].includes(item.id)) {
+      populateStoryList(this.type);
+    }
     this.emit(item.id, item);
+  }
+
+  toggleCollapse(id) {
+    if (cachedStories[id]) {
+      if ('collapsed' in cachedStories[id]) {
+        cachedStories[id].collapsed = !cachedStories[id].collapsed;
+      } else {
+        cachedStories[id].collapsed = true;
+      }
+      this.emit(id, cachedStories[id]);
+      return cachedStories[id].collapsed;
+    }
+    log.error(`error: toggleCollapse -> item not exist ${id}`);
+    return false;
   }
 
   static getCacheItem(id) {
     log.info(`get cache item ${id}`);
     return cachedStories[id] || null;
+  }
+
+  static isCollapsed(id) {
+    if (cachedStories[id]) {
+      return cachedStories[id].collapsed;
+    }
+    log.error(`error: isCollapsed -> item not exist ${id}`);
+    return false;
+  }
+
+  static childCount(id) {
+    if (cachedStories[id]) {
+      if (cachedStories[id].kids) {
+        return cachedStories[id].kids.length;
+      }
+      return 1;
+    }
+    log.error(`error: childCount -> item not exist ${id}`);
+    return 0;
   }
 
   static load() {

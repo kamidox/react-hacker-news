@@ -1,4 +1,5 @@
 /* eslint react/no-danger: 0 */
+/* eslint jsx-a11y/no-static-element-interactions: 0 */
 import React from 'react';
 import { Link } from 'react-router';
 import urlParse from 'url-parse';
@@ -39,16 +40,35 @@ function renderMeta(item) {
   );
 }
 
-function renderText(item) {
+function renderHtmlText(item, className) {
   if (!item.text) {
-    return <div className="item__text" />;
+    return <div className={className} />;
   }
 
   return (
-    <div className="item__text">
+    <div className={className}>
       <div dangerouslySetInnerHTML={{ __html: item.text }} />
     </div>
   );
 }
 
-export { renderTitle, renderMeta, renderText };
+function renderText(item) {
+  return renderHtmlText(item, 'item__text');
+}
+
+function renderCommentMeta(item, collapsed, childCount, toggleCollapse) {
+  return (
+    <div className="comment__meta">
+      {item.by} {postTime(item.time)}
+      <span className="comment__collapse" onClick={toggleCollapse}>
+        {' '} [{collapsed ? `+${childCount}` : '-'}]
+      </span>
+    </div>
+  );
+}
+
+function renderCommentText(item) {
+  return renderHtmlText(item, 'comment__text');
+}
+
+export { renderTitle, renderMeta, renderText, renderCommentMeta, renderCommentText };
