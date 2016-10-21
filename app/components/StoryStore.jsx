@@ -49,6 +49,8 @@ class StoryStore extends EventEmmiter {
     this.type = type;
     if (!(type in itemIds)) {
       itemIds[type] = [];
+    }
+    if (!(type in storyList)) {
       storyList[type] = [];
       populateStoryList(type);
     }
@@ -137,21 +139,21 @@ class StoryStore extends EventEmmiter {
   }
 
   static load() {
-    log.info('load cache from localStorage');
     if (typeof window === 'undefined') {
       return;
     }
     itemIds = parseJson(window.localStorage.itemIds, {});
     cachedStories = parseJson(window.localStorage.cachedStories, {});
+    log.info(`load ${Object.keys(cachedStories).length} cached item from localStorage`);
   }
 
   static save() {
-    log.info('save cache to localStorage');
     if (typeof window === 'undefined') {
       return;
     }
     window.localStorage.setItem('itemIds', JSON.stringify(itemIds));
-    window.localStorage.setItem('cacheStories', JSON.stringify(cachedStories));
+    window.localStorage.setItem('cachedStories', JSON.stringify(cachedStories));
+    log.info(`save ${Object.keys(cachedStories).length} cached item to localStorage`);
   }
 }
 
