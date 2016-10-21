@@ -1,7 +1,10 @@
 import React from 'react';
-import log from 'loglevel';
+import Log from 'loglevel';
 import StoryStore from './StoryStore';
 import { renderTitle, renderMeta } from './Utils';
+
+const logView = Log.getLogger('view');
+const logCtrl = Log.getLogger('controller');
 
 class StoryListItem extends React.Component {
   constructor(props) {
@@ -25,12 +28,13 @@ class StoryListItem extends React.Component {
   }
 
   handleItemUpdate(item) {
+    logCtrl.debug(`story list item updated for ${item.id}`);
     this.setState({ item });
   }
 
   render() {
     const item = this.state.item;
-    log.info(`story list item render ${this.props.itemId} : ${item}`);
+    logView.debug(`story list item render ${this.props.itemId} : ${item}`);
     if (!item) {
       return <li key={this.props.itemId}>loading item {this.props.itemId} ...</li>;
     }

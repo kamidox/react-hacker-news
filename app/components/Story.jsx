@@ -1,8 +1,10 @@
 import React from 'react';
-import log from 'loglevel';
+import Log from 'loglevel';
 import StoryStore from './StoryStore';
 import Paginator from './Paginator';
 import StoryListItem from './StoryListItem';
+
+const logView = Log.getLogger('view');
 
 class Story extends React.Component {
   constructor(props) {
@@ -17,7 +19,7 @@ class Story extends React.Component {
   }
 
   componentWillMount() {
-    log.info(`${this.props.type}: componentWillMount`);
+    logView.debug(`${this.props.type}: componentWillMount`);
     this.store = new StoryStore(this.props.type);
     this.store.addListener('update', this.handleStoryUpdate);
     this.store.fetchStory();
@@ -25,7 +27,7 @@ class Story extends React.Component {
   }
 
   componentWillUnmount() {
-    log.info(`${this.props.type}: componentWillUnmount`);
+    logView.debug(`${this.props.type}: componentWillUnmount`);
     this.store.removeListener('update', this.handleStoryUpdate);
     this.store.stop();
     this.store = null;
@@ -49,7 +51,7 @@ class Story extends React.Component {
     const items = [];
     const page = this.getPage(30, this.state.ids.length);
     const ids = this.state.ids;
-    log.info(`${this.props.type}: render page ${page.page}`);
+    logView.debug(`${this.props.type}: render page ${page.page}`);
     for (let i = page.startIndex; i < page.endIndex; i += 1) {
       items.push(
         <StoryListItem key={ids[i]} itemId={ids[i]} store={this.store} />);

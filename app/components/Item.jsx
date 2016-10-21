@@ -1,7 +1,10 @@
 import React from 'react';
+import Log from 'loglevel';
 import StoryStore from './StoryStore';
 import Comment from './Comment';
 import { renderTitle, renderMeta, renderText } from './Utils';
+
+const log = Log.getLogger('controller');
 
 class Item extends React.Component {
   constructor(props) {
@@ -31,6 +34,7 @@ class Item extends React.Component {
   }
 
   handleItemUpdate(item) {
+    log.debug(`item updated for ${item.id}`);
     this.setState({ item });
   }
 

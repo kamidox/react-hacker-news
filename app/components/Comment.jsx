@@ -1,7 +1,11 @@
 import React from 'react';
 import classNames from 'classnames';
+import Log from 'loglevel';
 import StoryStore from './StoryStore';
 import { renderCommentMeta, renderCommentText } from './Utils';
+
+const logCtrl = Log.getLogger('controller');
+const logView = Log.getLogger('view');
 
 class Comment extends React.Component {
   constructor(props) {
@@ -25,15 +29,18 @@ class Comment extends React.Component {
   }
 
   handleItemUpdate(item) {
+    logCtrl.debug(`comment updated for ${item.id}`);
     this.setState({ item });
   }
 
   toggleCollapse(e) {
     e.preventDefault();
+    logCtrl.debug(`toogle collapse for comment ${this.props.id}`);
     this.props.store.toggleCollapse(this.props.id);
   }
 
   render() {
+    logView.debug(`Comment component render for item ${this.state.item}`);
     if (!this.state.item) {
       return (
         <div className={`comment comment--level${this.props.level}`}>

@@ -1,10 +1,12 @@
 import React from 'react';
+import Log from 'loglevel';
 import NavLink from './NavLink';
 import StoryStore from './StoryStore';
 
 require('./App.css');
 
 const URL = 'https://github.com/kamidox/react-hacker-news';
+const log = Log.getLogger('view');
 
 class App extends React.Component {
   static handleBeforeUnload() {
@@ -12,6 +14,7 @@ class App extends React.Component {
   }
 
   componentWillMount() {
+    log.debug(`App component will mount for window ${window}`);
     StoryStore.load();
     if (typeof window !== 'undefined') {
       window.addEventListener('beforeunload', App.handleBeforeUnload);
@@ -19,12 +22,14 @@ class App extends React.Component {
   }
 
   componentWillUnmount() {
+    log.debug(`App component will unmount for window ${window}`);
     if (typeof window !== 'undefined') {
       window.removeEventListener('beforeunload', App.handleBeforeUnload);
     }
   }
 
   render() {
+    log.debug('App component render');
     return (
       <div className="app">
         <div className="header">

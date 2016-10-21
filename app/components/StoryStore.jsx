@@ -1,6 +1,8 @@
 import EventEmmiter from 'events';
-import log from 'loglevel';
+import Log from 'loglevel';
 import { storyRef, itemRef } from './HackerNewsRest';
+
+const logCtrl = Log.getLogger('controller');
 
 /*
  * Cached story ids list. category by type (one of "job", "story", "comment", "poll", or "pollopt")
@@ -36,7 +38,7 @@ function populateStoryList(type) {
       num += 1;
     }
   });
-  log.info(`populate story list. totally ${num} items cached for ${type}`);
+  logCtrl.debug(`populate story list. totally ${num} items cached for ${type}`);
 }
 
 function parseJson(json, defaultValue) {
@@ -65,7 +67,7 @@ class StoryStore extends EventEmmiter {
 
   // start to load latest story ids from network
   fetchStory() {
-    log.info(`fetch story ${this.type}`);
+    logCtrl.debug(`fetch story ${this.type}`);
     storyRef(this.type)
       .then(res => res.json())
       .then(ids => this.onStoryUpdated(ids));
@@ -73,11 +75,11 @@ class StoryStore extends EventEmmiter {
 
   // stop to load
   stop() {
-    log.info(`${this.type}: stop`);
+    logCtrl.debug(`${this.type}: stop`);
   }
 
   onStoryUpdated(ids) {
-    log.info(`story updated. totaly ${ids.length} items.`);
+    logCtrl.debug(`story updated. totaly ${ids.length} items.`);
     itemIds[this.type] = ids;
     populateStoryList(this.type);
     this.emit('update', this.getState());
@@ -85,14 +87,14 @@ class StoryStore extends EventEmmiter {
 
   // fetch story from network by its id
   fetchItem(id) {
-    log.info(`fetch item ${id}`);
+    logCtrl.debug(`fetch item ${id}`);
     itemRef(id)
       .then(res => res.json())
       .then(item => this.onItemUpdated(item));
   }
 
   onItemUpdated(item) {
-    log.info(`item updated. id=${item.id}, title=${item.title}`);
+    logCtrl.debug(`item updated. id=${item.id}, title=${item.title}`);
     cachedStories[item.id] = item;
     if (itemIds[this.type].includes(item.id)) {
       populateStoryList(this.type);
@@ -110,12 +112,12 @@ class StoryStore extends EventEmmiter {
       this.emit(id, cachedStories[id]);
       return cachedStories[id].collapsed;
     }
-    log.error(`error: toggleCollapse -> item not exist ${id}`);
+    logCtrl.error(`error: toggleCollapse -> item not exist ${id}`);
     return false;
   }
 
   static getCacheItem(id) {
-    log.info(`get cache item ${id}`);
+    logCtrl.debug(`get cached item for ${id}`);
     return cachedStories[id] || null;
   }
 
@@ -123,7 +125,7 @@ class StoryStore extends EventEmmiter {
     if (cachedStories[id]) {
       return cachedStories[id].collapsed;
     }
-    log.error(`error: isCollapsed -> item not exist ${id}`);
+    Log.error(`error: isCollapsed -> item not exist ${id}`);
     return false;
   }
 
@@ -144,7 +146,7 @@ class StoryStore extends EventEmmiter {
     }
     itemIds = parseJson(window.localStorage.itemIds, {});
     cachedStories = parseJson(window.localStorage.cachedStories, {});
-    log.info(`load ${Object.keys(cachedStories).length} cached item from localStorage`);
+    logCtrl.info(`load ${Object.keys(cachedStories).length} cached item from localStorage`);
   }
 
   static save() {
@@ -153,7 +155,7 @@ class StoryStore extends EventEmmiter {
     }
     window.localStorage.setItem('itemIds', JSON.stringify(itemIds));
     window.localStorage.setItem('cachedStories', JSON.stringify(cachedStories));
-    log.info(`save ${Object.keys(cachedStories).length} cached item to localStorage`);
+    logCtrl.info(`save ${Object.keys(cachedStories).length} cached item to localStorage`);
   }
 }
 
