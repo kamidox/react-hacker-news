@@ -126,13 +126,13 @@ class StoryStore extends EventEmmiter {
   }
 
   static childCount(id) {
-    if (cachedStories[id]) {
-      if (cachedStories[id].kids) {
-        return cachedStories[id].kids.length;
-      }
-      return 1;
+    if (cachedStories[id] && cachedStories[id].kids) {
+      let cnt = 0;
+      cachedStories[id].kids.forEach((kid) => {
+        cnt += StoryStore.childCount(kid);
+      });
+      return cnt + cachedStories[id].kids.length;
     }
-    log.error(`error: childCount -> item not exist ${id}`);
     return 0;
   }
 

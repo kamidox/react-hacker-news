@@ -48,7 +48,7 @@ class Comment extends React.Component {
     const level = this.props.level;
     const store = this.props.store;
     const collapsed = StoryStore.isCollapsed(id);
-    const childCount = StoryStore.childCount(id);
+    const childCount = StoryStore.childCount(id) + 1;
     const className = classNames('comment', `comment--level${level}`, {
       'comment--collapsed': collapsed,
     });
