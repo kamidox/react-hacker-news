@@ -30,6 +30,7 @@
     "react": "15.x",
     "react-dom": "15.x",
     "react-router": "^2.8.1",
+    "react-spinkit": "^1.1.11",
     "react-timeago": "^3.1.3",
     "url-parse": "^1.1.6"
   },

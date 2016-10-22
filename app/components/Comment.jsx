@@ -1,4 +1,5 @@
 import React from 'react';
+import Spinner from 'react-spinkit';
 import classNames from 'classnames';
 import Log from 'loglevel';
 import StoryStore from './StoryStore';
@@ -45,6 +46,7 @@ class Comment extends React.Component {
       return (
         <div className={`comment comment--level${this.props.level}`}>
           <div className="comment__content">
+            <Spinner spinnerName="circle" noFadeIn />
             {`loading comment ${this.props.id}`}
           </div>
         </div>

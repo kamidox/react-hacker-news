@@ -1,4 +1,5 @@
 import React from 'react';
+import Spinner from 'react-spinkit';
 import Log from 'loglevel';
 import StoryStore from './StoryStore';
 import { renderTitle, renderMeta } from './Utils';
@@ -36,7 +37,11 @@ class StoryListItem extends React.Component {
     const item = this.state.item;
     logView.debug(`story list item render ${this.props.itemId} : ${item}`);
     if (!item) {
-      return <li key={this.props.itemId}>loading item {this.props.itemId} ...</li>;
+      return (
+        <li key={this.props.itemId}>
+          <Spinner spinnerName="circle" noFadeIn />
+          loading item {this.props.itemId} ...
+        </li>);
     }
     return (
       <li key={this.props.itemId}>
@@ -47,8 +52,6 @@ class StoryListItem extends React.Component {
       </li>
     );
   }
-
-
 }
 
 StoryListItem.propTypes = {

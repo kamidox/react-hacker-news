@@ -1,4 +1,5 @@
 import React from 'react';
+import Spinner from 'react-spinkit';
 import Log from 'loglevel';
 import StoryStore from './StoryStore';
 import Paginator from './Paginator';
@@ -57,7 +58,11 @@ class Story extends React.Component {
         <StoryListItem key={ids[i]} itemId={ids[i]} store={this.store} />);
     }
     if (items.length === 0) {
-      items.push(<div key={this.props.type}>{`loading ${this.props.type} ...`}</div>);
+      items.push(
+        <div key={this.props.type}>
+          <Spinner spinnerName="three-bounce" noFadeIn />
+          {`loading ${this.props.type} ...`}
+        </div>);
     }
     return (
       <div>
