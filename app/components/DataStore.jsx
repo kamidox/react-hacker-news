@@ -1,6 +1,6 @@
 import EventEmmiter from 'events';
 import Log from 'loglevel';
-import { storyRef, itemRef } from './HackerNewsRest';
+import { storyRef, itemRef, userRef } from './HackerNewsRest';
 
 const logCtrl = Log.getLogger('controller');
 
@@ -8,13 +8,7 @@ const logCtrl = Log.getLogger('controller');
  * Cached story ids list. category by type (one of "job", "story", "comment", "poll", or "pollopt")
  * Show stories return by: https://hacker-news.firebaseio.com/v0/showstories.json
 **/
-let itemIds = {};
-
-/**
- * Cached stores.
- * Store <id, item> pair data. Will store to localStorage when component unmounted.
- */
-let cachedStories = {};
+let storyIds = {};
 
 /**
  * Story list. category by type.
@@ -23,13 +17,19 @@ let cachedStories = {};
 const storyList = {};
 
 /**
- * Load cached stores from CachedStories to storyList and itemIds.
+ * Cached stores.
+ * Store <id, item> pair data. Will store to localStorage when component unmounted.
+ */
+let cachedItems = {};
+
+/**
+ * Load cached stores from CachedStories to storyList and storyIds.
  */
 function populateStoryList(type) {
-  const ids = itemIds[type];
+  const ids = storyIds[type];
   const stories = storyList[type];
   for (let i = 0; i < ids.length; i += 1) {
-    stories[i] = cachedStories[ids[i]] || null;
+    stories[i] = cachedItems[ids[i]] || null;
   }
 
   let num = 0;
@@ -49,8 +49,8 @@ class StoryStore extends EventEmmiter {
   constructor(type) {
     super();
     this.type = type;
-    if (!(type in itemIds)) {
-      itemIds[type] = [];
+    if (!(type in storyIds)) {
+      storyIds[type] = [];
     }
     if (!(type in storyList)) {
       storyList[type] = [];
@@ -60,7 +60,7 @@ class StoryStore extends EventEmmiter {
 
   getState() {
     return {
-      ids: itemIds[this.type],
+      ids: storyIds[this.type],
       stories: storyList[this.type]
     };
   }
@@ -80,11 +80,37 @@ class StoryStore extends EventEmmiter {
 
   onStoryUpdated(ids) {
     logCtrl.debug(`story updated. totaly ${ids.length} items.`);
-    itemIds[this.type] = ids;
+    storyIds[this.type] = ids;
     populateStoryList(this.type);
     this.emit('update', this.getState());
   }
 
+  onItemUpdated(item) {
+    if (storyIds[this.type].includes(item.id)) {
+      populateStoryList(this.type);
+    }
+  }
+
+  static load() {
+    if (typeof window === 'undefined') {
+      return;
+    }
+    storyIds = parseJson(window.localStorage.storyIds, {});
+    cachedItems = parseJson(window.localStorage.cachedItems, {});
+    logCtrl.info(`load ${Object.keys(cachedItems).length} cached item from localStorage`);
+  }
+
+  static save() {
+    if (typeof window === 'undefined') {
+      return;
+    }
+    window.localStorage.setItem('storyIds', JSON.stringify(storyIds));
+    window.localStorage.setItem('cachedItems', JSON.stringify(cachedItems));
+    logCtrl.info(`save ${Object.keys(cachedItems).length} cached item to localStorage`);
+  }
+}
+
+class ItemStore extends EventEmmiter {
   // fetch story from network by its id
   fetchItem(id) {
     logCtrl.debug(`fetch item ${id}`);
@@ -95,22 +121,19 @@ class StoryStore extends EventEmmiter {
 
   onItemUpdated(item) {
     logCtrl.debug(`item updated. id=${item.id}, title=${item.title}`);
-    cachedStories[item.id] = item;
-    if (itemIds[this.type].includes(item.id)) {
-      populateStoryList(this.type);
-    }
+    cachedItems[item.id] = item;
     this.emit(item.id, item);
   }
 
   toggleCollapse(id) {
-    if (cachedStories[id]) {
-      if ('collapsed' in cachedStories[id]) {
-        cachedStories[id].collapsed = !cachedStories[id].collapsed;
+    if (cachedItems[id]) {
+      if ('collapsed' in cachedItems[id]) {
+        cachedItems[id].collapsed = !cachedItems[id].collapsed;
       } else {
-        cachedStories[id].collapsed = true;
+        cachedItems[id].collapsed = true;
       }
-      this.emit(id, cachedStories[id]);
-      return cachedStories[id].collapsed;
+      this.emit(id, cachedItems[id]);
+      return cachedItems[id].collapsed;
     }
     logCtrl.error(`error: toggleCollapse -> item not exist ${id}`);
     return false;
@@ -118,45 +141,45 @@ class StoryStore extends EventEmmiter {
 
   static getCacheItem(id) {
     logCtrl.debug(`get cached item for ${id}`);
-    return cachedStories[id] || null;
+    return cachedItems[id] || null;
   }
 
   static isCollapsed(id) {
-    if (cachedStories[id]) {
-      return cachedStories[id].collapsed;
+    if (cachedItems[id]) {
+      return cachedItems[id].collapsed;
     }
     Log.error(`error: isCollapsed -> item not exist ${id}`);
     return false;
   }
 
   static childCount(id) {
-    if (cachedStories[id] && cachedStories[id].kids) {
+    if (cachedItems[id] && cachedItems[id].kids) {
       let cnt = 0;
-      cachedStories[id].kids.forEach((kid) => {
-        cnt += StoryStore.childCount(kid);
+      cachedItems[id].kids.forEach((kid) => {
+        cnt += ItemStore.childCount(kid);
       });
-      return cnt + cachedStories[id].kids.length;
+      return cnt + cachedItems[id].kids.length;
     }
     return 0;
   }
+}
 
-  static load() {
-    if (typeof window === 'undefined') {
-      return;
-    }
-    itemIds = parseJson(window.localStorage.itemIds, {});
-    cachedStories = parseJson(window.localStorage.cachedStories, {});
-    logCtrl.info(`load ${Object.keys(cachedStories).length} cached item from localStorage`);
+class UserStore extends EventEmmiter {
+  fetchUser(id) {
+    logCtrl.debug(`fetch user ${id}`);
+    userRef(id)
+      .then(res => res.json())
+      .then(user => this.onUserUpdated(user));
   }
 
-  static save() {
-    if (typeof window === 'undefined') {
-      return;
-    }
-    window.localStorage.setItem('itemIds', JSON.stringify(itemIds));
-    window.localStorage.setItem('cachedStories', JSON.stringify(cachedStories));
-    logCtrl.info(`save ${Object.keys(cachedStories).length} cached item to localStorage`);
+  onUserUpdated(user) {
+    logCtrl.debug(`user updated. id=${user.id}, about=${user.about}`);
+    this.emit(user.id, user);
   }
 }
 
-export default StoryStore;
+export {
+  StoryStore,
+  ItemStore,
+  UserStore
+};

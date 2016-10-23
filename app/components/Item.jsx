@@ -1,6 +1,6 @@
 import React from 'react';
 import Log from 'loglevel';
-import StoryStore from './StoryStore';
+import { ItemStore } from './DataStore';
 import Comment from './Comment';
 import { renderTitle, renderMeta, renderText } from './Utils';
 
@@ -10,17 +10,14 @@ class Item extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      item: StoryStore.getCacheItem(Number(props.params.id))
+      item: ItemStore.getCacheItem(Number(props.params.id))
     };
 
     this.handleItemUpdate = this.handleItemUpdate.bind(this);
   }
 
   componentWillMount() {
-    if (!this.state.item) {
-      return;
-    }
-    this.store = new StoryStore(this.state.item.type);
+    this.store = new ItemStore();
     this.store.fetchItem(this.props.params.id);
     this.store.addListener(this.props.params.id, this.handleItemUpdate);
   }

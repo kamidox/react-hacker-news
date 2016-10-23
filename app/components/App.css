@@ -67,7 +67,8 @@ body {
   margin: 0px;
 }
 
-.item
+.item,
+.user
 {
   padding: 3px 0px;
 }
@@ -102,7 +103,8 @@ body {
   font-size: 8pt;
 }
 
-.comment__meta
+.comment__meta,
+.user__meta
 {
   margin-top: 0.2em;
   color: #828282;
@@ -132,7 +134,8 @@ body {
   color: #828282;
 }
 
-.comment__text
+.comment__text,
+.user__about
 {
   margin-top: 0.5em;
   color: #000;
@@ -187,6 +190,17 @@ body {
 .comment--level7 .comment__content
 {
   padding-left: 7em;
+}
+
+.user__id
+{
+  font-size: 20pt;
+}
+
+.user__story
+{
+  margin: 10px 0;
+  border-top: 1px #ff6600 solid;
 }
 
 .paginator

@@ -13,6 +13,10 @@ function postTime(secs) {
   return <TimeAgo date={secs * 1000} />;
 }
 
+function postBy(userId) {
+  return <Link to={`/user/${userId}`}>{userId}</Link>;
+}
+
 function renderTitle(item) {
   const hasUrl = !!item.url;
   const itemTitle = hasUrl ? <a href={item.url}>{item.title}</a>
@@ -30,7 +34,7 @@ function renderTitle(item) {
 function renderMeta(item) {
   return (
     <div className="item__meta">
-      {item.score} points by {item.by} {postTime(item.time)}
+      {item.score} points by {postBy(item.by)} {postTime(item.time)}
       {(item.descendants === 0 || item.descendants > 0) && ' | '}
       <Link to={`/${item.type}/${item.id}`}>
         {item.descendants === 0 && 'discuss'}
@@ -40,26 +44,26 @@ function renderMeta(item) {
   );
 }
 
-function renderHtmlText(item, className) {
-  if (!item.text) {
+function renderHtmlText(text, className) {
+  if (!text) {
     return <div className={className} />;
   }
 
   return (
     <div className={className}>
-      <div dangerouslySetInnerHTML={{ __html: item.text }} />
+      <div dangerouslySetInnerHTML={{ __html: text }} />
     </div>
   );
 }
 
 function renderText(item) {
-  return renderHtmlText(item, 'item__text');
+  return renderHtmlText(item.text, 'item__text');
 }
 
 function renderCommentMeta(item, collapsed, childCount, toggleCollapse) {
   return (
     <div className="comment__meta">
-      {item.by} {postTime(item.time)}
+      {postBy(item.by)} {postTime(item.time)}
       <span className="comment__collapse" onClick={toggleCollapse}>
         {' '} [{collapsed ? `+${childCount}` : '-'}]
       </span>
@@ -68,7 +72,26 @@ function renderCommentMeta(item, collapsed, childCount, toggleCollapse) {
 }
 
 function renderCommentText(item) {
-  return renderHtmlText(item, 'comment__text');
+  return renderHtmlText(item.text, 'comment__text');
 }
 
-export { renderTitle, renderMeta, renderText, renderCommentMeta, renderCommentText };
+function getPage(pageSize, curPage, numItems) {
+  let page = curPage;
+  page = (page && /^\d+$/.test(page) ? Math.max(1, Number(page)) : 1);
+
+  const startIndex = (page - 1) * pageSize;
+  const endIndex = Math.min(numItems, (startIndex + pageSize));
+  const hasNext = endIndex < numItems;
+  return { page, startIndex, endIndex, hasNext };
+}
+
+export {
+  renderTitle,
+  renderMeta,
+  renderText,
+  renderCommentMeta,
+  renderCommentText,
+  postTime,
+  renderHtmlText,
+  getPage
+};

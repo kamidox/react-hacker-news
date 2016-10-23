@@ -3,6 +3,7 @@ import { Route, IndexRoute } from 'react-router';
 import Story from './Story';
 import App from './App';
 import Item from './Item';
+import User from './User';
 
 function stories(type) {
   return props => <Story {...props} type={type} />;
@@ -24,6 +25,7 @@ const routes = (
     <Route path="/ask" component={asks} />
     <Route path="/jobs" component={jobs} />
     <Route path="/story/:id" component={Item} />
+    <Route path="/user/:id" component={User} />
   </Route>
 );
 

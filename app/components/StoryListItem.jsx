@@ -1,7 +1,7 @@
 import React from 'react';
 import Spinner from 'react-spinkit';
 import Log from 'loglevel';
-import StoryStore from './StoryStore';
+import { ItemStore } from './DataStore';
 import { renderTitle, renderMeta } from './Utils';
 
 const logView = Log.getLogger('view');
@@ -12,7 +12,7 @@ class StoryListItem extends React.Component {
     super(props);
 
     this.state = {
-      item: StoryStore.getCacheItem(this.props.itemId)
+      item: ItemStore.getCacheItem(this.props.itemId)
     };
 
     this.handleItemUpdate = this.handleItemUpdate.bind(this);
@@ -20,12 +20,13 @@ class StoryListItem extends React.Component {
 
   componentWillMount() {
     // update story list item
-    this.props.store.fetchItem(this.props.itemId);
-    this.props.store.addListener(this.props.itemId, this.handleItemUpdate);
+    this.store = new ItemStore();
+    this.store.fetchItem(this.props.itemId);
+    this.store.addListener(this.props.itemId, this.handleItemUpdate);
   }
 
   componentWillUnmount() {
-    this.props.store.removeListener(this.props.itemId, this.handleItemUpdate);
+    this.store.removeListener(this.props.itemId, this.handleItemUpdate);
   }
 
   handleItemUpdate(item) {
@@ -43,6 +44,10 @@ class StoryListItem extends React.Component {
           loading item {this.props.itemId} ...
         </li>);
     }
+    if (!item.title) {
+      logView.info(`skip story item with empty title: type=${item.type} id=${item.id}`);
+      return null;
+    }
     return (
       <li key={this.props.itemId}>
         <div className="item">
@@ -55,8 +60,7 @@ class StoryListItem extends React.Component {
 }
 
 StoryListItem.propTypes = {
-  itemId: React.PropTypes.number.isRequired,
-  store: React.PropTypes.instanceOf(StoryStore).isRequired
+  itemId: React.PropTypes.number.isRequired
 };
 
 export default StoryListItem;

@@ -2,7 +2,7 @@ import React from 'react';
 import Spinner from 'react-spinkit';
 import classNames from 'classnames';
 import Log from 'loglevel';
-import StoryStore from './StoryStore';
+import { ItemStore } from './DataStore';
 import { renderCommentMeta, renderCommentText } from './Utils';
 
 const logCtrl = Log.getLogger('controller');
@@ -13,7 +13,7 @@ class Comment extends React.Component {
     super(props);
 
     this.state = {
-      item: StoryStore.getCacheItem(props.id)
+      item: ItemStore.getCacheItem(props.id)
     };
 
     this.handleItemUpdate = this.handleItemUpdate.bind(this);
@@ -56,8 +56,8 @@ class Comment extends React.Component {
     const id = this.props.id;
     const level = this.props.level;
     const store = this.props.store;
-    const collapsed = StoryStore.isCollapsed(id);
-    const childCount = StoryStore.childCount(id) + 1;
+    const collapsed = ItemStore.isCollapsed(id);
+    const childCount = ItemStore.childCount(id) + 1;
     const className = classNames('comment', `comment--level${level}`, {
       'comment--collapsed': collapsed,
     });
@@ -85,7 +85,7 @@ class Comment extends React.Component {
 Comment.propTypes = {
   id: React.PropTypes.number.isRequired,
   level: React.PropTypes.number.isRequired,
-  store: React.PropTypes.instanceOf(StoryStore).isRequired
+  store: React.PropTypes.instanceOf(ItemStore).isRequired
 };
 
 export default Comment;

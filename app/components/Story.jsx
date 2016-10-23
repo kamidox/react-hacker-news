@@ -1,9 +1,10 @@
 import React from 'react';
 import Spinner from 'react-spinkit';
 import Log from 'loglevel';
-import StoryStore from './StoryStore';
+import { StoryStore } from './DataStore';
 import Paginator from './Paginator';
 import StoryListItem from './StoryListItem';
+import { getPage } from './Utils';
 
 const logView = Log.getLogger('view');
 
@@ -34,28 +35,18 @@ class Story extends React.Component {
     this.store = null;
   }
 
-  getPage(pageSize, numItems) {
-    let page = this.props.location.query.page;
-    page = (page && /^\d+$/.test(page) ? Math.max(1, Number(page)) : 1);
-
-    const startIndex = (page - 1) * pageSize;
-    const endIndex = Math.min(numItems, (startIndex + pageSize));
-    const hasNext = endIndex < numItems;
-    return { page, startIndex, endIndex, hasNext };
-  }
-
   handleStoryUpdate(state) {
     this.setState(state);
   }
 
   render() {
     const items = [];
-    const page = this.getPage(30, this.state.ids.length);
+    const page = getPage(30, this.props.location.query.page, this.state.ids.length);
     const ids = this.state.ids;
     logView.debug(`${this.props.type}: render page ${page.page}`);
     for (let i = page.startIndex; i < page.endIndex; i += 1) {
       items.push(
-        <StoryListItem key={ids[i]} itemId={ids[i]} store={this.store} />);
+        <StoryListItem key={ids[i]} itemId={ids[i]} />);
     }
     if (items.length === 0) {
       items.push(

@@ -15,7 +15,13 @@ function itemRef(id) {
   return fetch(`${END_POINT}/item/${id}.json`);
 }
 
+function userRef(id) {
+  log.debug(`request user for ${id}`);
+  return fetch(`${END_POINT}/user/${id}.json`);
+}
+
 export {
   storyRef,
-  itemRef
+  itemRef,
+  userRef
 };

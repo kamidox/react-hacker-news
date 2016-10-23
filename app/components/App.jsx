@@ -1,7 +1,7 @@
 import React from 'react';
 import Log from 'loglevel';
 import NavLink from './NavLink';
-import StoryStore from './StoryStore';
+import { StoryStore } from './DataStore';
 
 require('./App.css');
 
