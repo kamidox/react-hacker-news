@@ -1,4 +1,5 @@
 import React from 'react';
+import Spinner from 'react-spinkit';
 import Log from 'loglevel';
 import { ItemStore } from './DataStore';
 import Comment from './Comment';
@@ -38,11 +39,19 @@ class Item extends React.Component {
   render() {
     const item = this.state.item;
     if (!item) {
-      return <div className="item">Something goes wrong. Item is null!</div>;
+      return (
+        <div className="item" key={this.props.type}>
+          <Spinner spinnerName="three-bounce" noFadeIn />
+          {`loading item ${this.props.params.id} ...`}
+        </div>
+      );
     }
+
     const kids = [];
-    item.kids.forEach(kid => kids.push(
-      <Comment key={kid} id={kid} level={0} store={this.store} />));
+    if (item.kids) {
+      item.kids.forEach(kid => kids.push(
+        <Comment key={kid} id={kid} level={0} store={this.store} />));
+    }
     return (
       <div className="item">
         <div className="item__content">

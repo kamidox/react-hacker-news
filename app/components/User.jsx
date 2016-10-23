@@ -34,7 +34,7 @@ class User extends React.Component {
       return (
         <div>
           <Spinner spinnerName="three-bounce" noFadeIn />
-          loading user {this.props.params.id} ...
+          loading the profile of user {this.props.params.id} ...
         </div>
       );
     }
@@ -51,14 +51,14 @@ class User extends React.Component {
       <div className="user">
         <div className="user__id">{id}</div>
         <div className="user__meta">
-          Created {postTime(user.created)}. Posts {user.submitted.length} stories.
+          Created {postTime(user.created)}. Posts {user.submitted.length} stories/comments.
         </div>
         <div className="user__about">{renderHtmlText(user.about)}</div>
         <div className="user__story">
-          <div className="user__meta">Story posted by {id}</div>
-          <ul>
+          <div className="user__meta">Stories/comments posted by {id}</div>
+          <ol start={page.startIndex + 1}>
             {items}
-          </ul>
+          </ol>
           <Paginator
             pathname={this.props.location.pathname}
             page={page.page}

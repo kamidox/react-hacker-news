@@ -25,6 +25,10 @@ const routes = (
     <Route path="/ask" component={asks} />
     <Route path="/jobs" component={jobs} />
     <Route path="/story/:id" component={Item} />
+    <Route path="/job/:id" component={Item} />
+    <Route path="/comment/:id" component={Item} />
+    <Route path="/poll/:id" component={Item} />
+    <Route path="/pollopt/:id" component={Item} />
     <Route path="/user/:id" component={User} />
   </Route>
 );

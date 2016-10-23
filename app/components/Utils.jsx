@@ -19,8 +19,9 @@ function postBy(userId) {
 
 function renderTitle(item) {
   const hasUrl = !!item.url;
+  const title = item.title ? item.title : `Comment item ${item.id}`;
   const itemTitle = hasUrl ? <a href={item.url}>{item.title}</a>
-      : <Link to={`/${item.type}/${item.id}`}>{item.title}</Link>;
+      : <Link to={`/${item.type}/${item.id}`}>{title}</Link>;
   return (
     <div className="item__title">
       {itemTitle}

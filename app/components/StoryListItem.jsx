@@ -44,10 +44,6 @@ class StoryListItem extends React.Component {
           loading item {this.props.itemId} ...
         </li>);
     }
-    if (!item.title) {
-      logView.info(`skip story item with empty title: type=${item.type} id=${item.id}`);
-      return null;
-    }
     return (
       <li key={this.props.itemId}>
         <div className="item">
