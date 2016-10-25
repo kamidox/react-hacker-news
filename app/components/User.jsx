@@ -1,9 +1,8 @@
 import React from 'react';
 import Spinner from 'react-spinkit';
-import { postTime, renderHtmlText, getPage } from './Utils';
 import { UserStore } from './DataStore';
-import StoryListItem from './StoryListItem';
-import Paginator from './Paginator';
+import { postTime, renderHtmlText } from './Utils';
+import StoryList from './StoryList';
 
 class User extends React.Component {
   constructor(props) {
@@ -38,32 +37,17 @@ class User extends React.Component {
         </div>
       );
     }
-    const id = this.props.params.id;
     const user = this.state.user;
-    const items = [];
-    const page = getPage(30, this.props.location.query.page, user.submitted.length);
-    for (let i = page.startIndex; i < page.endIndex; i += 1) {
-      items.push(
-        <StoryListItem key={user.submitted[i]} itemId={user.submitted[i]} />);
-    }
-
     return (
       <div className="user">
-        <div className="user__id">{id}</div>
+        <div className="user__id">{user.id}</div>
         <div className="user__meta">
           Created {postTime(user.created)}. Posts {user.submitted.length} stories/comments.
         </div>
         <div className="user__about">{renderHtmlText(user.about)}</div>
         <div className="user__story">
-          <div className="user__meta">Stories/comments posted by {id}</div>
-          <ol start={page.startIndex + 1}>
-            {items}
-          </ol>
-          <Paginator
-            pathname={this.props.location.pathname}
-            page={page.page}
-            hasNext={page.hasNext}
-          />
+          <div className="user__meta">Stories/comments posted by {user.id}</div>
+          <StoryList ids={user.submitted} location={this.props.location} />
         </div>
       </div>
     );

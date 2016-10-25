@@ -1,10 +1,7 @@
 import React from 'react';
-import Spinner from 'react-spinkit';
 import Log from 'loglevel';
 import { StoryStore } from './DataStore';
-import Paginator from './Paginator';
-import StoryListItem from './StoryListItem';
-import { getPage } from './Utils';
+import StoryList from './StoryList';
 
 const logView = Log.getLogger('view');
 
@@ -40,33 +37,7 @@ class Story extends React.Component {
   }
 
   render() {
-    const items = [];
-    const page = getPage(30, this.props.location.query.page, this.state.ids.length);
-    const ids = this.state.ids;
-    logView.debug(`${this.props.type}: render page ${page.page}`);
-    for (let i = page.startIndex; i < page.endIndex; i += 1) {
-      items.push(
-        <StoryListItem key={ids[i]} itemId={ids[i]} />);
-    }
-    if (items.length === 0) {
-      items.push(
-        <div key={this.props.type}>
-          <Spinner spinnerName="three-bounce" noFadeIn />
-          {`loading ${this.props.type} ...`}
-        </div>);
-    }
-    return (
-      <div>
-        <ol className="storylist" start={page.startIndex + 1}>
-          {items}
-        </ol>
-        <Paginator
-          pathname={this.props.location.pathname}
-          page={page.page}
-          hasNext={page.hasNext}
-        />
-      </div>
-    );
+    return <StoryList ids={this.state.ids} location={this.props.location} />;
   }
 }
 
