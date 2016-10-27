@@ -1,13 +1,14 @@
 {
   "env": {
-    "node": true
+    "node": true,
+    "jasmine": true
   },
-  ecmaFeatures: {
-    jsx: true
+  "ecmaFeatures": {
+    "jsx": true
   },
   "globals": {
-    document: false,
-    window: false
+    "document": false,
+    "window": false
   },
   "plugins": [
   ],

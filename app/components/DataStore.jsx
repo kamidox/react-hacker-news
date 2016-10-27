@@ -95,6 +95,9 @@ class StoryStore extends EventEmmiter {
     if (typeof window === 'undefined') {
       return;
     }
+    if (typeof window.localStorage === 'undefined') {
+      return;
+    }
     storyIds = parseJson(window.localStorage.storyIds, {});
     cachedItems = parseJson(window.localStorage.cachedItems, {});
     logCtrl.info(`load ${Object.keys(cachedItems).length} cached item from localStorage`);
@@ -102,6 +105,9 @@ class StoryStore extends EventEmmiter {
 
   static save() {
     if (typeof window === 'undefined') {
+      return;
+    }
+    if (typeof window.localStorage === 'undefined') {
       return;
     }
     window.localStorage.setItem('storyIds', JSON.stringify(storyIds));
