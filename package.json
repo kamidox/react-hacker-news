@@ -6,7 +6,7 @@
   "scripts": {
     "lint": "eslint \"app/**/*.@(js|jsx)\"",
     "lint:msg": "validate-commit-msg",
-    "test": "mocha --compilers js:babel-core/register --require ignore-styles --require ./test/setup.js --reporter spec \"test/**/*.@(js|jsx)\"",
+    "test": "mocha --compilers js:babel-core/register --require ignore-styles --require ./test/setup.js --reporter spec --timeout 5000 \"test/**/*.@(js|jsx)\"",
     "build": "webpack",
     "start": "webpack-dev-server --devtool eval --progress --hot --content-base public",
     "deploy": "NODE_ENV=production webpack -p --config webpack.production.config.js",

@@ -1,3 +1,4 @@
+/* eslint import/no-extraneous-dependencies: 0 */
 import jsdom from 'jsdom';
 
 if (typeof document === 'undefined') {
