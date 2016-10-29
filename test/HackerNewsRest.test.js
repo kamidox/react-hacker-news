@@ -8,7 +8,7 @@ import {
 } from '../app/components/HackerNewsRest';
 
 describe('HackerNewsRest', () => {
-  it('fetch story', (done) => {
+  xit('fetch story', (done) => {
     storyRef('newstories')
       .then(res => res.json())
       .then((ids) => {
@@ -18,7 +18,7 @@ describe('HackerNewsRest', () => {
       });
   });
 
-  it('fetch item of story', (done) => {
+  xit('fetch item of story', (done) => {
     itemRef('8863')
       .then(res => res.json())
       .then((item) => {
@@ -33,7 +33,7 @@ describe('HackerNewsRest', () => {
       });
   });
 
-  it('fetch item of comment', (done) => {
+  xit('fetch item of comment', (done) => {
     itemRef('8952')
       .then(res => res.json())
       .then((item) => {
@@ -50,7 +50,7 @@ describe('HackerNewsRest', () => {
       });
   });
 
-  it('fetch user', () => {
+  xit('fetch user', () => {
     userRef('dhouston')
       .then((res) => {
         const user = res.json();

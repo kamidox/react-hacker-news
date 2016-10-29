@@ -152,6 +152,9 @@ class ItemStore extends EventEmmiter {
 
   static isCollapsed(id) {
     if (cachedItems[id]) {
+      if (typeof cachedItems[id].collapsed === 'undefined') {
+        return false;
+      }
       return cachedItems[id].collapsed;
     }
     Log.error(`error: isCollapsed -> item not exist ${id}`);

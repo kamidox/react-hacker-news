@@ -4,7 +4,7 @@
   "description": "hacker news client implemented by react",
   "main": "app/main.jsx",
   "scripts": {
-    "lint": "eslint \"app/**/*.@(js|jsx)\"",
+    "lint": "eslint \"app/**/*.@(js|jsx)\" \"test/**/*.@(js|jsx)\"",
     "lint:msg": "validate-commit-msg",
     "test": "mocha --compilers js:babel-core/register --require ignore-styles --require ./test/setup.js --reporter spec --timeout 5000 \"test/**/*.@(js|jsx)\"",
     "build": "webpack",
@@ -60,6 +60,7 @@
     "mocha": "^3.1.2",
     "open-browser-webpack-plugin": "0.0.2",
     "react-addons-test-utils": "^15.3.2",
+    "sinon": "^1.17.6",
     "style-loader": "~0.13.0",
     "validate-commit-msg": "2.x",
     "webpack": "latest",
