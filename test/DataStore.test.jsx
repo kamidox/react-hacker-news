@@ -42,7 +42,7 @@ describe('DataStore', () => {
     };
     let store = new ItemStore();
 
-    const stub = sinon.stub(store, 'fetchItem', () => store.onItemUpdated(itemData));
+    const stub = sinon.stub(store, 'fetchItem', () => store.onItemUpdated(itemData.id, itemData));
 
     function handleItemUpdate(item) {
       expect(item.id).equal(itemData.id);

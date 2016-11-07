@@ -122,13 +122,13 @@ class ItemStore extends EventEmmiter {
     logCtrl.debug(`fetch item ${id}`);
     itemRef(id)
       .then(res => res.json())
-      .then(item => this.onItemUpdated(item));
+      .then(item => this.onItemUpdated(id, item));
   }
 
-  onItemUpdated(item) {
-    logCtrl.debug(`item updated. id=${item.id}, title=${item.title}`);
-    cachedItems[item.id] = item;
-    this.emit(item.id, item);
+  onItemUpdated(id, item) {
+    logCtrl.debug(`item updated. id=${id}, item=${item}`);
+    cachedItems[id] = item;
+    this.emit(id, item);
   }
 
   toggleCollapse(id) {
