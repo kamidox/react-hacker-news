@@ -1,6 +1,6 @@
 /* eslint import/no-extraneous-dependencies: 0 */
 import React from 'react';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import { expect } from 'chai';
 import sinon from 'sinon';
 import Spinner from 'react-spinkit';
@@ -15,7 +15,10 @@ describe('<Comment />', () => {
 
   beforeEach(() => {
     store = new ItemStore();
-    stub = sinon.stub(ItemStore, 'getCacheItem', () => item);
+    stub = sinon.stub(ItemStore, 'getCacheItem', () => {
+      store.onItemUpdated(item ? item.id : 8952, item);
+      return item;
+    });
   });
 
   afterEach(() => {
@@ -49,7 +52,7 @@ describe('<Comment />', () => {
   it('render Comment with kids', () => {
     item = {
       by: 'nickb',
-      id: 8953,
+      id: 8952,
       parent: 8863,
       kids: [
         9153,
@@ -65,5 +68,20 @@ describe('<Comment />', () => {
     expect(wrapper.find('.comment__kids')).to.have.length(1);
     expect(wrapper.find(Spinner)).to.have.length(0);
     expect(wrapper.find(Comment)).to.have.length(item.kids.length);
+  });
+
+  it('click to toggle Comment collapsed', () => {
+    item = {
+      by: 'nickb',
+      id: 8952,
+      parent: 8863,
+      text: 'comment text',
+      time: 1175727286,
+      type: 'comment'
+    };
+    const wrapper = mount(<Comment id={item.id} level={0} store={store} />);
+    expect(wrapper.find('.comment .comment--level0 .comment--collapsed')).to.have.length(0);
+    wrapper.find('.comment__collapse').simulate('click');
+    expect(wrapper.find('.comment .comment--level0 .comment--collapsed')).to.have.length(1);
   });
 });

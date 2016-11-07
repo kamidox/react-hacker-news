@@ -11,6 +11,12 @@ describe('<User />', () => {
   const params = {
     id: 1
   };
+  const location = {
+    query: {
+      page: 0
+    },
+    pathname: '/story'
+  };
 
   it('render starting with a Spinner', () => {
     const wrapper = shallow(<User params={params} />);
@@ -29,7 +35,7 @@ describe('<User />', () => {
         7336
       ]
     };
-    const wrapper = shallow(<User params={params} />);
+    const wrapper = shallow(<User params={params} location={location} />);
     wrapper.setState({ user });
     expect(wrapper.find('.user')).to.have.length(1);
     expect(wrapper.find('.user__id')).to.have.length(1);
