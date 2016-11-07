@@ -11,18 +11,15 @@ import { ItemStore } from '../app/components/DataStore';
 describe('<Comment />', () => {
   let store = null;
   let stub = null;
-  let stub2 = null;
   let item = null;
 
   beforeEach(() => {
     store = new ItemStore();
-    stub = sinon.stub(store, 'fetchItem', () => store.onItemUpdated(item ? item.id : 8952, item));
-    stub2 = sinon.stub(ItemStore, 'getCacheItem', () => item);
+    stub = sinon.stub(ItemStore, 'getCacheItem', () => item);
   });
 
   afterEach(() => {
     stub.restore();
-    stub2.restore();
     store = null;
   });
 
